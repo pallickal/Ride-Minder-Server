@@ -1,0 +1,27 @@
+version: '2'
+services:
+  graphql:
+    image: 'ride-minder-graphql-server'
+    container_name: 'test-rmgs'
+    ports:
+      - '47080:3080'
+    links:
+      - postgres
+    environment:
+      PGHOSTADDR: postgres
+      PGPORT: 5432
+      PGUSER: test
+      PGPASSWORD: iwx3001-rzlm237
+    volumes:
+      - './test:/usr/src/ride-minder-server/test'
+  postgres:
+    image: 'postgres'
+    container_name: 'test-rmgs-db'
+    ports:
+      - '47543:5432'
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: iwx3001-rzlm237
+      POSTGRES_DB: rideminder
+    volumes:
+      - './test/pgdata:/var/lib/postgresql/data'

@@ -1,0 +1,27 @@
+version: '2'
+services:
+  graphql:
+    image: 'ride-minder-graphql-server'
+    container_name: 'ride-minder-graphql-server'
+    ports:
+      - '48080:3080'
+    links:
+      - postgres
+    environment:
+      PGHOSTADDR: postgres
+      PGPORT: 5432
+      PGUSER: dev
+      PGPASSWORD: iwx3001-rklm237
+    volumes:
+      - './test/fixtures.js:/usr/src/ride-minder-server/test/fixtures.js'
+  postgres:
+    image: 'postgres'
+    container_name: 'ride-minder-graphql-server_db'
+    ports:
+      - '48543:5432'
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: iwx3001-rklm237
+      POSTGRES_DB: rideminder
+    volumes:
+      - './pgdata:/var/lib/postgresql/data'
