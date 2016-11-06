@@ -1,15 +1,14 @@
 FROM node:latest
 
 ARG YARN_OFFLINE
-RUN echo ${YARN_OFFLINE:+--offline}
 
 # Create app directory
 RUN mkdir -p /usr/src/ride-minder-server
 WORKDIR /usr/src/ride-minder-server
 
-# Get yarn from dev-cache to aid working offline
+# Copy yarn from dev-cache to aid working offline
 COPY ./dev-cache/yarn-latest /opt/yarn-latest
-RUN ln -s /opt/yarn-latest/bin/yarn /bin/
+ENV PATH "/opt/yarn-latest/bin:$PATH"
 
 # Install app dependencies, aided by a persistent cache
 MOUNT ./dev-cache/yarn-cache:/root/.yarn-cache
