@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node_modules/.bin/babel-node src/server.js",
+    "dev-setup": "sudo npm i -g commitizen && npm run dev-cache-update",
     "update-dev-cache": "mkdir -p dev-cache  && wget -O dev-cache/yarn-latest.tar.gz https://yarnpkg.com/latest.tar.gz && mkdir -p dev-cache/yarn-latest && tar zvxf dev-cache/yarn-latest.tar.gz -C dev-cache/yarn-latest --strip-components=1 && touch yarn.lock && test -e dev-cache/yarn-latest/bin/yarn",
     "clear-dev-cache" : "sudo rm -rf dev-cache",
     "pretest": "npm run docker-test-down && npm run docker-test-up",
@@ -37,6 +38,12 @@
   "devDependencies": {
     "babel-core": "^6.14.0",
     "chai": "^3.5.0",
+    "cz-conventional-changelog": "^1.2.0",
     "mocha": "^3.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
