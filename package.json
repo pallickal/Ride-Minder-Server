@@ -17,7 +17,7 @@
     "docker-dev-down": "docker-compose -f docker-compose.dev.yml -p dev_ride-minder-graphql-server down",
     "docker-dev-restart": "npm run docker-dev-down && npm run docker-dev-up",
     "docker-dev-reload": "npm run build && npm run docker-dev-restart",
-    "docker-dev-shell": "docker exec -it ride-minder-graphql-server /bin/bash",
+    "docker-dev-exec": "docker exec -it ride-minder-graphql-server",
     "docker-test-up": "docker-compose -f docker-compose.test.yml -p test-rmgs-project up -d",
     "docker-test-down": "docker-compose -f docker-compose.test.yml -p test-rmgs-project down",
     "docker-test-shell": "docker exec -it test-rmgs /bin/bash"
