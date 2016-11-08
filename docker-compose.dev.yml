@@ -12,6 +12,7 @@ services:
       PGPORT: 5432
       PGUSER: dev
       PGPASSWORD: iwx3001-rklm237
+      PGDATABASE: rideminder
     volumes:
       - './test/fixtures.js:/usr/src/ride-minder-server/test/fixtures.js'
   postgres:

@@ -12,6 +12,7 @@ services:
       PGPORT: 5432
       PGUSER: test
       PGPASSWORD: iwx3001-rzlm237
+      PGDATABASE: rideminder
     volumes:
       - './test:/usr/src/ride-minder-server/test'
   postgres:

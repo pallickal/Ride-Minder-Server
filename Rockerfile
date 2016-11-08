@@ -10,8 +10,14 @@ WORKDIR /usr/src/ride-minder-server
 COPY ./dev-cache/yarn-latest /opt/yarn-latest
 ENV PATH "/opt/yarn-latest/bin:$PATH"
 
-# Install app dependencies, aided by a persistent cache
+# Mount persistent cache for offline installs
 MOUNT ./dev-cache/yarn-cache:/root/.yarn-cache
+
+# Install global app dependencies
+COPY .sequelizerc ./.sequelizerc
+RUN yarn global add sequelize-cli
+
+# Install local app dependencies
 MOUNT ./yarn.lock:/usr/src/ride-minder-server/yarn.lock
 COPY package.json ./package.json
 RUN yarn ${YARN_OFFLINE:+--offline}

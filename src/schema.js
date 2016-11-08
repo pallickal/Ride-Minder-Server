@@ -7,7 +7,7 @@ import {
   GraphQLNonNull
 } from 'graphql';
 
-import Db from './db';
+import { sequelize as Db } from './sequelize/models/index.js';
 
 const Person = new GraphQLObjectType({
   name: 'Person',
@@ -47,6 +47,12 @@ const Vehicle = new GraphQLObjectType({
   description: 'This represents a Vehicle',
   fields: () => {
     return {
+      id: {
+        type: GraphQLInt,
+        resolve(vehicle) {
+          return vehicle.id;
+        }
+      },
       person: {
         type: Person,
         resolve(vehicle) {
@@ -113,13 +119,13 @@ const Query = new GraphQLObjectType({
       people: {
         type: new GraphQLList(Person),
         resolve(root, args) {
-          return Db.models.person.findAll({where: args});
+          return Db.models.Person.findAll({where: args});
         }
       },
       vehicles: {
         type: new GraphQLList(Vehicle),
         resolve(root, args) {
-          return Db.models.vehicle.findAll({where: args});
+          return Db.models.Vehicle.findAll({where: args});
         }
       }
     };
@@ -142,10 +148,25 @@ const Mutation = new GraphQLObjectType({
           }
         },
         resolve: (root, args) => {
-          return Db.models.person.create({
+          return Db.models.Person.create({
             handle: args.handle,
             email: args.email
           });
+        }
+      },
+      removePerson: {
+        type: Person,
+        args: {
+          id: {
+            type: new GraphQLNonNull(GraphQLInt)
+          }
+        },
+        resolve: (root, args) => {
+          return Db.models.Person.findOne({ where: args }).then((person) =>
+            {
+              if (!person) { throw `Could not find person with id ${args.id}` };
+              return person.destroy().then(() => { return person });
+            });
         }
       }
     }

@@ -1,8 +1,8 @@
-import DbConn from '../src/db';
+import { sequelize as DbConn } from '../src/sequelize/models/index.js';
 
 function populate_db() {
   DbConn.sync({ force: true }).then(() => {
-    return DbConn.models.person.create({
+    return DbConn.models.Person.create({
       handle: 'rideminder',
       email: 'rideminder@rideminder.com'
     }).then((person) => {
