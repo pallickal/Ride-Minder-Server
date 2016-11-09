@@ -7,7 +7,7 @@ import {
   GraphQLNonNull
 } from 'graphql';
 
-import { sequelize as Db } from './sequelize/models/index.js';
+import {sequelize as Db} from './sequelize/models/index.js';
 
 const Person = new GraphQLObjectType({
   name: 'Person',
@@ -162,7 +162,7 @@ const Mutation = new GraphQLObjectType({
           }
         },
         resolve: (root, args) => {
-          return Db.models.Person.findOne({ where: args }).then((person) =>
+          return Db.models.Person.findOne({where: args}).then((person) =>
             {
               if (!person) { throw `Could not find person with id ${args.id}` };
               return person.destroy().then(() => { return person });
