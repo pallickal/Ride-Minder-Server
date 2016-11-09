@@ -1,12 +1,12 @@
-import Sequelize from '../src/sequelize/models/index.js';
-import Schema from '../src/schema';
-import {expect, assert} from 'chai';
+import chai, {expect} from 'chai';
+import dirtyChai from 'dirty-chai';
 import {graphql} from 'graphql';
 import {Source} from 'graphql/language/source';
 import {parse} from 'graphql/language/parser';
 import {validate} from 'graphql/validation/validate';
-import chai from 'chai';
-import dirtyChai from 'dirty-chai';
+
+import Sequelize from '../src/sequelize/models/index';
+import Schema from '../src/schema';
 
 chai.use(dirtyChai);
 
@@ -42,7 +42,7 @@ describe('person schema', function () {
         const query = `
         query { people { id } }
         `;
-        graphql(Schema, query).then((result) => {
+        graphql(Schema, query).then(result => {
           expect(result.errors, result.errors).to.be.empty();
           expect(result.data.people).to.not.be.empty();
           expect(result.data.people[0]).to.be.an('object');
@@ -99,7 +99,6 @@ describe('person schema', function () {
     });
 
     describe('execution test', function () {
-
       it('should return a person', function (done) {
         const query = `
         mutation {
@@ -115,10 +114,10 @@ describe('person schema', function () {
         `;
         graphql(Schema, query).then(function (result) {
           expect(result.errors, result.errors).to.be.empty();
-          expect(result.data.addPerson.id).to.be.a("number");
-          expect(result.data.addPerson.handle).to.equal("someone");
+          expect(result.data.addPerson.id).to.be.a('number');
+          expect(result.data.addPerson.handle).to.equal('someone');
           expect(result.data.addPerson.email).to.equal(
-            "someperson@emailprovider.br"
+            'someperson@emailprovider.br'
           );
           done();
         });
@@ -173,7 +172,7 @@ describe('person schema', function () {
           }
         }
         `;
-        graphql(Schema, query).then((result) => {
+        graphql(Schema, query).then(result => {
           expect(result.errors, result.errors).to.be.empty();
           expect(result.data.removePerson).to.not.be.empty();
           expect(result.data.removePerson.id).to.be.a('number');
@@ -185,11 +184,11 @@ describe('person schema', function () {
 
       it('should also remove owned vehicles', function (done) {
         let vehicleIds;
-        Sequelize['Person'].find({
+        Sequelize.Person.find({
           where: {id: 1},
-          include: [Sequelize['Vehicle']]
-        }).then((result) => {
-          vehicleIds = result.Vehicles.map((vehicle) => vehicle.id);
+          include: [Sequelize.Vehicle]
+        }).then(result => {
+          vehicleIds = result.Vehicles.map(vehicle => vehicle.id);
           const query = `
           mutation {
             removePerson (id: 1) {
@@ -200,11 +199,11 @@ describe('person schema', function () {
             }
           }
           `;
-          graphql(Schema, query).then((result) => {
+          graphql(Schema, query).then(result => {
             expect(result.errors, result.errors).to.be.empty();
-            Sequelize['Vehicle'].findAll(
+            Sequelize.Vehicle.findAll(
               {where: {id: vehicleIds}}
-            ).then((result) => {
+            ).then(result => {
               expect(result).to.be.empty();
               done();
             });
