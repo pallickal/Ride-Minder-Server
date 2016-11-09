@@ -13,9 +13,10 @@ ENV PATH "/opt/yarn-latest/bin:$PATH"
 # Mount persistent cache for offline installs
 MOUNT ./dev-cache/yarn-cache:/root/.yarn-cache
 
-# Install global app dependencies
+# Install global app dependencies for tests
 COPY .sequelizerc ./.sequelizerc
 RUN yarn global add sequelize-cli
+RUN yarn global add xo
 
 # Install local app dependencies
 MOUNT ./yarn.lock:/usr/src/ride-minder-server/yarn.lock

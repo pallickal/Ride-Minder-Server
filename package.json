@@ -13,7 +13,7 @@
     "build-cache-update": "mkdir -p dev-cache  && wget -O dev-cache/yarn-latest.tar.gz https://yarnpkg.com/latest.tar.gz && mkdir -p dev-cache/yarn-latest && tar zvxf dev-cache/yarn-latest.tar.gz -C dev-cache/yarn-latest --strip-components=1 && touch yarn.lock && test -e dev-cache/yarn-latest/bin/yarn",
     "build-cache-clear": "sudo rm -rf dev-cache",
     "pretest": "npm run build && npm run docker-test-down && npm run docker-test-up",
-    "test": "docker exec -it test-rmgs npm run test-in-container",
+    "test": "npm run docker-test-exec -- npm run test-in-container && npm run docker-test-exec xo",
     "test-in-container": "babel-node test/fixtures.js && mocha --compilers js:babel-core/register test/personTest.js",
     "prebuild": "[ -d dev-cache ] && [ -w dev-cache ] || npm run build-cache-update",
     "build": "rocker build --build-arg YARN_OFFLINE=$DOCKER_YARN_OFFLINE",
@@ -24,7 +24,7 @@
     "docker-dev-exec": "docker exec -it ride-minder-graphql-server",
     "docker-test-up": "docker-compose -f docker-compose.test.yml -p test-rmgs-project up -d",
     "docker-test-down": "docker-compose -f docker-compose.test.yml -p test-rmgs-project down",
-    "docker-test-shell": "docker exec -it test-rmgs /bin/bash"
+    "docker-test-exec": "docker exec -it test-rmgs"
   },
   "author": "Lindsay Pallickal",
   "license": "UNLICENSED",
@@ -45,11 +45,19 @@
     "babel-core": "^6.14.0",
     "chai": "^3.5.0",
     "cz-conventional-changelog": "^1.2.0",
-    "mocha": "^3.0.2"
+    "mocha": "^3.0.2",
+    "xo": "^0.17.0"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "xo": {
+    "globals": [
+      "describe",
+      "it"
+    ],
+    "space": true
   }
 }
