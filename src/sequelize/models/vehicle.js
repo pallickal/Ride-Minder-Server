@@ -1,5 +1,5 @@
 'use strict';
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Vehicle = sequelize.define('Vehicle', {
     year: DataTypes.INTEGER,
     make: {
@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     miles: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: function (models) {
         models['Vehicle'].belongsTo(models['Person']);
       }
     }

@@ -19,10 +19,10 @@ function validationErrors(query) {
   return validate(Schema, ast);
 }
 
-describe('person schema', function() {
-  describe('people', function() {
-    describe('validation tests', function() {
-      it('should validate', function(done) {
+describe('person schema', function () {
+  describe('people', function () {
+    describe('validation tests', function () {
+      it('should validate', function (done) {
         const query = `
         query {
           people {
@@ -37,8 +37,8 @@ describe('person schema', function() {
       });
     });
 
-    describe('execution tests', function() {
-      it('should return at least one person', function(done) {
+    describe('execution tests', function () {
+      it('should return at least one person', function (done) {
         const query = `
         query { people { id } }
         `;
@@ -53,9 +53,9 @@ describe('person schema', function() {
     });
   });
 
-  describe('addPerson', function() {
-    describe('validation tests', function() {
-      it('should validate', function(done) {
+  describe('addPerson', function () {
+    describe('validation tests', function () {
+      it('should validate', function (done) {
         const query = `
         mutation {
           addPerson (handle:"someone", email:"someperson@emailprovider.br") {
@@ -69,7 +69,7 @@ describe('person schema', function() {
         done();
       });
 
-      it('should not validate unless handle is specified', function(done) {
+      it('should not validate unless handle is specified', function (done) {
         const query = `
         mutation {
           addPerson (email: "someperson@emailprovider.br") {
@@ -83,7 +83,7 @@ describe('person schema', function() {
         done();
       });
 
-      it('should not validate unless email is specified', function(done) {
+      it('should not validate unless email is specified', function (done) {
         const query = `
         mutation {
           addPerson (handle: "someperson") {
@@ -98,9 +98,9 @@ describe('person schema', function() {
       });
     });
 
-    describe('execution test', function() {
+    describe('execution test', function () {
 
-      it('should return a person', function(done) {
+      it('should return a person', function (done) {
         const query = `
         mutation {
           addPerson (
@@ -113,7 +113,7 @@ describe('person schema', function() {
           }
         }
         `;
-        graphql(Schema, query).then(function(result) {
+        graphql(Schema, query).then(function (result) {
           expect(result.errors, result.errors).to.be.empty();
           expect(result.data.addPerson.id).to.be.a("number");
           expect(result.data.addPerson.handle).to.equal("someone");
@@ -124,7 +124,7 @@ describe('person schema', function() {
         });
       });
 
-      it('should error when email is invalid', function(done) {
+      it('should error when email is invalid', function (done) {
         const query = `
         mutation {
           addPerson (
@@ -137,7 +137,7 @@ describe('person schema', function() {
           }
         }
         `;
-        graphql(Schema, query).then(function(result) {
+        graphql(Schema, query).then(function (result) {
           expect(result.errors).to.not.be.empty();
           done();
         });
@@ -145,9 +145,9 @@ describe('person schema', function() {
     });
   });
 
-  describe('removePerson', function() {
-    describe('validation tests', function() {
-      it('should validate', function(done) {
+  describe('removePerson', function () {
+    describe('validation tests', function () {
+      it('should validate', function (done) {
         const query = `
         mutation {
           removePerson (id: 73) {
@@ -162,8 +162,8 @@ describe('person schema', function() {
       });
     });
 
-    describe('execution tests', function() {
-      it('should return removed person', function(done) {
+    describe('execution tests', function () {
+      it('should return removed person', function (done) {
         const query = `
         mutation {
           removePerson (id: 2) {
@@ -183,7 +183,7 @@ describe('person schema', function() {
         });
       });
 
-      it('should also remove owned vehicles', function(done) {
+      it('should also remove owned vehicles', function (done) {
         let vehicleIds;
         Sequelize['Person'].find({
           where: {id: 1},

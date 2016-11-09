@@ -1,5 +1,5 @@
 'use strict';
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Person = sequelize.define('Person', {
     handle: {
       type: DataTypes.STRING,
@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: function (models) {
         models['Person'].hasMany(models['Vehicle'], {onDelete: 'cascade'});
       }
     }
