@@ -25,4 +25,4 @@ services:
       POSTGRES_PASSWORD: iwx3001-rzlm237
       POSTGRES_DB: rideminder
     volumes:
-      - './test/pgdata:/var/lib/postgresql/data'
+      - './dev-cache/test-pgdata:/var/lib/postgresql/data'
