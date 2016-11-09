@@ -5,6 +5,10 @@ import { graphql } from 'graphql';
 import { Source } from 'graphql/language/source';
 import { parse } from 'graphql/language/parser';
 import { validate } from 'graphql/validation/validate';
+import chai from 'chai';
+import dirtyChai from 'dirty-chai';
+
+chai.use(dirtyChai);
 
 /**
  * Helper function to test a query and the expected response.
@@ -28,7 +32,7 @@ describe('person schema', function() {
           }
         }
         `;
-        expect(validationErrors(query)).to.be.empty;
+        expect(validationErrors(query), validationErrors(query)).to.be.empty();
         done();
       });
     });
@@ -39,8 +43,8 @@ describe('person schema', function() {
         query { people { id } }
         `;
         graphql(Schema, query).then((result) => {
-          expect(result.errors, result.errors).to.be.empty;
-          expect(result.data.people).to.not.be.empty;
+          expect(result.errors, result.errors).to.be.empty();
+          expect(result.data.people).to.not.be.empty();
           expect(result.data.people[0]).to.be.an('object');
           expect(result.data.people[0].id).to.be.a('number');
           done();
@@ -61,7 +65,7 @@ describe('person schema', function() {
           }
         }
         `;
-        expect(validationErrors(query), validationErrors(query)).to.be.empty;
+        expect(validationErrors(query), validationErrors(query)).to.be.empty();
         done();
       });
 
@@ -75,7 +79,7 @@ describe('person schema', function() {
           }
         }
         `;
-        expect(validationErrors(query)).to.not.be.empty;
+        expect(validationErrors(query)).to.not.be.empty();
         done();
       });
 
@@ -89,7 +93,7 @@ describe('person schema', function() {
           }
         }
         `;
-        expect(validationErrors(query)).to.not.be.empty;
+        expect(validationErrors(query)).to.not.be.empty();
         done();
       });
     });
@@ -110,7 +114,7 @@ describe('person schema', function() {
         }
         `;
         graphql(Schema, query).then(function(result) {
-          expect(result.errors, result.errors).to.be.empty;
+          expect(result.errors, result.errors).to.be.empty();
           expect(result.data.addPerson.id).to.be.a("number");
           expect(result.data.addPerson.handle).to.equal("someone");
           expect(result.data.addPerson.email).to.equal(
@@ -134,7 +138,7 @@ describe('person schema', function() {
         }
         `;
         graphql(Schema, query).then(function(result) {
-          expect(result.errors).to.not.be.empty;
+          expect(result.errors).to.not.be.empty();
           done();
         });
       });
@@ -153,7 +157,7 @@ describe('person schema', function() {
           }
         }
         `;
-        expect(validationErrors(query)).to.be.empty;
+        expect(validationErrors(query)).to.be.empty();
         done();
       });
     });
@@ -170,8 +174,8 @@ describe('person schema', function() {
         }
         `;
         graphql(Schema, query).then((result) => {
-          expect(result.errors, result.errors).to.be.empty;
-          expect(result.data.removePerson).to.not.be.empty;
+          expect(result.errors, result.errors).to.be.empty();
+          expect(result.data.removePerson).to.not.be.empty();
           expect(result.data.removePerson.id).to.be.a('number');
           expect(result.data.removePerson.handle).to.be.a('string');
           expect(result.data.removePerson.email).to.be.a('string');
@@ -197,11 +201,11 @@ describe('person schema', function() {
           }
           `;
           graphql(Schema, query).then((result) => {
-            expect(result.errors, result.errors).to.be.empty;
+            expect(result.errors, result.errors).to.be.empty();
             Sequelize['Vehicle'].findAll(
               { where: { id: vehicleIds } }
             ).then((result) => {
-              expect(result).to.be.empty;
+              expect(result).to.be.empty();
               done();
             });
           });
