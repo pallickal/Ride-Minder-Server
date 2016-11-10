@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node_modules/.bin/babel-node src/server.js",
     "dev-setup": "sudo npm i -g commitizen && npm run build-cache-update",
-    "dev-pgdata-clear": "sudo rm -rf dev-cache/dev-pgdata",
+    "dev-pgdata-clear": "npm run docker-dev-down && sudo rm -rf dev-cache/dev-pgdata",
     "test-setup": "npm run build-cache-update",
-    "test-pgdata-clear": "sudo rm -rf dev-cache/test-pgdata",
+    "test-pgdata-clear": "npm run docker-test-down && sudo rm -rf dev-cache/test-pgdata",
     "pgdata-clear": "npm run test-pgdata-clear && npm run dev-pgdata-clear",
     "build-cache-update": "mkdir -p dev-cache  && wget -O dev-cache/yarn-latest.tar.gz https://yarnpkg.com/latest.tar.gz && mkdir -p dev-cache/yarn-latest && tar zvxf dev-cache/yarn-latest.tar.gz -C dev-cache/yarn-latest --strip-components=1 && touch yarn.lock && test -e dev-cache/yarn-latest/bin/yarn",
     "build-cache-clear": "sudo rm -rf dev-cache",
