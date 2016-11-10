@@ -150,9 +150,11 @@ describe('person schema', function () {
         const query = `
         mutation {
           removePerson (id: 73) {
-            id,
-            handle,
-            email
+            person {
+              id,
+              handle,
+              email
+            }
           }
         }
         `;
@@ -165,19 +167,16 @@ describe('person schema', function () {
       it('should return removed person', function (done) {
         const query = `
         mutation {
-          removePerson (id: 2) {
-            id,
-            handle,
-            email
-          }
+          removePerson (id: 2) {person {id, handle, email}, errors}
         }
         `;
         graphql(Schema, query).then(result => {
           expect(result.errors, result.errors).to.be.empty();
-          expect(result.data.removePerson).to.not.be.empty();
-          expect(result.data.removePerson.id).to.be.a('number');
-          expect(result.data.removePerson.handle).to.be.a('string');
-          expect(result.data.removePerson.email).to.be.a('string');
+          expect(result.data.removePerson.errors).to.be.empty();
+          expect(result.data.removePerson.person).to.not.be.empty();
+          expect(result.data.removePerson.person.id).to.be.a('number');
+          expect(result.data.removePerson.person.handle).to.be.a('string');
+          expect(result.data.removePerson.person.email).to.be.a('string');
           done();
         });
       });
@@ -192,10 +191,13 @@ describe('person schema', function () {
           const query = `
           mutation {
             removePerson (id: 1) {
-              id,
-              handle,
-              email,
-              vehicles { id }
+              person {
+                id,
+                handle,
+                email,
+                vehicles { id }
+              },
+              errors
             }
           }
           `;

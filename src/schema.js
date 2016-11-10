@@ -7,7 +7,7 @@ import {
   GraphQLNonNull
 } from 'graphql';
 
-import {sequelize as Db} from './sequelize/models/index.js';
+import {sequelize as Db} from './sequelize/models/index';
 
 const Person = new GraphQLObjectType({
   name: 'Person',
@@ -155,21 +155,33 @@ const Mutation = new GraphQLObjectType({
         }
       },
       removePerson: {
-        type: Person,
+        type: new GraphQLObjectType({
+          name: 'CreateUserResult',
+          fields: {
+            person: {type: Person},
+            errors: {type: new GraphQLList(GraphQLString)}
+          }
+        }),
         args: {
           id: {
             type: new GraphQLNonNull(GraphQLInt)
           }
         },
         resolve: (root, args) => {
-          return Db.models.Person.findOne({where: args}).then((person) =>
-            {
-              if (!person) { throw `Could not find person with id ${args.id}` };
-              return person.destroy().then(() => { return person });
-            });
+          return Db.models.Person.findOne({where: args}).then(person => {
+            let errors = [];
+
+            if (person) {
+              return person.destroy().then(() => {
+                return {person, errors};
+              });
+            }
+            errors.push(...['id', `Cannot remove id ${args.id}`]);
+            return {person, errors};
+          });
         }
       }
-    }
+    };
   }
 });
 
