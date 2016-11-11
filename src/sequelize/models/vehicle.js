@@ -15,7 +15,7 @@ module.exports = function (sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function (models) {
-        models['Vehicle'].belongsTo(models['Person']);
+        models.Vehicle.belongsTo(models.Person);
       }
     }
   });

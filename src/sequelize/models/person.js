@@ -15,7 +15,7 @@ module.exports = function (sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function (models) {
-        models['Person'].hasMany(models['Vehicle'], {onDelete: 'cascade'});
+        models.Person.hasMany(models.Vehicle, {onDelete: 'cascade'});
       }
     }
   });
