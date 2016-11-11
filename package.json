@@ -14,7 +14,7 @@
     "build-cache-clear": "sudo rm -rf dev-cache",
     "pretest": "npm run build && docker stop test-rmgs && npm run docker-test-up",
     "test": "npm run docker-test-exec -- npm run test-in-container && npm run docker-test-exec xo",
-    "test-in-container": "babel-node test/fixtures.js && mocha --compilers js:babel-core/register test/personTest.js",
+    "test-in-container": "babel-node test/fixtures.js && mocha --compilers js:babel-core/register test/person-test.js",
     "prebuild": "[ -d dev-cache ] && [ -w dev-cache ] || npm run build-cache-update",
     "build": "rocker build --build-arg YARN_OFFLINE=$DOCKER_YARN_OFFLINE",
     "docker-dev-up": "docker-compose -f docker-compose.dev.yml -p dev_ride-minder-graphql-server up -d",
