@@ -1,12 +1,12 @@
-import Express from 'express';
-import GraphHTTP from 'express-graphql';
+import express from 'express';
+import graphqlHTTP from 'express-graphql';
 import Schema from './schema';
 
 const APP_PORT = 3080;
 
-const app = Express();
+const app = express();
 
-app.use('/graphql', GraphHTTP({
+app.use('/graphql', graphqlHTTP({
   schema: Schema,
   pretty: true,
   graphiql: true
