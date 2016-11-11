@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     model: DataTypes.STRING,
     trim: DataTypes.STRING,
-    body_style: DataTypes.STRING,
+    bodyStyle: DataTypes.STRING,
     color: DataTypes.STRING,
     vin: DataTypes.STRING,
     miles: DataTypes.STRING

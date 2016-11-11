@@ -41,7 +41,7 @@ const Vehicle = Conn.define('vehicle', {
     type: Sequelize.STRING,
     allowNull: true
   },
-  body_style: {
+  bodyStyle: {
     type: Sequelize.STRING,
     allowNull: true
   },

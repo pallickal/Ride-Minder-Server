@@ -83,10 +83,10 @@ const Vehicle = new GraphQLObjectType({
           return vehicle.trim;
         }
       },
-      body_style: {
+      bodyStyle: {
         type: GraphQLString,
         resolve(vehicle) {
-          return vehicle.body_style;
+          return vehicle.bodyStyle;
         }
       },
       color: {

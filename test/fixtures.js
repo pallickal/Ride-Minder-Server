@@ -12,7 +12,7 @@ function populateDb() {
           make: 'Honda',
           model: 'Odyssey',
           trim: 'Touring Elite',
-          body_style: 'Minivan',
+          bodyStyle: 'Minivan',
           color: 'Silver',
           miles: 4500,
           vin: '1JZ2093KS20320931'
@@ -22,7 +22,7 @@ function populateDb() {
           make: 'Subaru',
           model: 'Outback',
           trim: 'Limited',
-          body_style: 'Wagon',
+          bodyStyle: 'Wagon',
           color: 'Silver',
           miles: 73431,
           vin: '1JZ2093KS20320931'
@@ -32,7 +32,7 @@ function populateDb() {
           make: 'Honda',
           model: 'Accord',
           trim: 'EX',
-          body_style: 'Sedan',
+          bodyStyle: 'Sedan',
           color: 'Grey',
           miles: 83707,
           vin: '1JZ2093KS20320931'
@@ -42,7 +42,7 @@ function populateDb() {
           make: 'Mercedes Benz',
           model: 'C230 Kompressor',
           trim: undefined,
-          body_style: 'Sedan',
+          bodyStyle: 'Sedan',
           color: 'Green',
           miles: 88392,
           vin: '1JZ2093KS20320931'
@@ -52,7 +52,7 @@ function populateDb() {
           make: 'Acura',
           model: 'Integra',
           trim: 'LS',
-          body_style: 'Coupe',
+          bodyStyle: 'Coupe',
           color: 'Milano Red',
           miles: 57383,
           vin: '1JZ2093KS20320931'

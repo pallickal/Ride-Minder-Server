@@ -21,7 +21,7 @@ module.exports = {
       trim: {
         type: Sequelize.STRING
       },
-      body_style: {
+      bodyStyle: {
         type: Sequelize.STRING
       },
       color: {
