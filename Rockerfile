@@ -6,12 +6,12 @@ ARG YARN_OFFLINE
 RUN mkdir -p /usr/src/ride-minder-server
 WORKDIR /usr/src/ride-minder-server
 
-# Copy yarn from dev-cache to aid working offline
-COPY ./dev-cache/yarn-latest /opt/yarn-latest
+# Copy yarn from ../rmgs-dev-cache to aid working offline
+COPY ../rmgs-dev-cache/yarn-latest /opt/yarn-latest
 ENV PATH "/opt/yarn-latest/bin:$PATH"
 
 # Mount persistent cache for offline installs
-MOUNT ./dev-cache/yarn-cache:/root/.yarn-cache
+MOUNT ../rmgs-dev-cache/yarn-cache:/root/.yarn-cache
 
 # Install global app dependencies for tests
 COPY .sequelizerc ./.sequelizerc
