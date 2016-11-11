@@ -62,6 +62,14 @@
     "space": true,
     "rules": {
         "no-unused-vars": ["error", { "vars": "all", "args": "none" }]
-    }
+    },
+    "overrides": [
+      {
+        "files": "test/*.js",
+        "rules": {
+          "max-nested-callbacks": ["error", 8]
+        }
+      }
+    ]
   }
 }
