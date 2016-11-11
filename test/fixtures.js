@@ -1,11 +1,11 @@
-import {sequelize as DbConn} from '../src/sequelize/models/index.js';
+import models, {sequelize} from '../src/sequelize/models/index';
 
-function populate_db() {
-  DbConn.sync({force: true}).then(() => {
-    return DbConn.models.Person.create({
+function populateDb() {
+  sequelize.sync({force: true}).then(() => {
+    return models.Person.create({
       handle: 'rideminder',
       email: 'rideminder@rideminder.com'
-    }).then((person) => {
+    }).then(person => {
       return [
         person.createVehicle({
           year: 2013,
@@ -62,4 +62,4 @@ function populate_db() {
   });
 }
 
-populate_db();
+populateDb();

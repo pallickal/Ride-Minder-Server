@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-const Conn  = new Sequelize(
+const Conn = new Sequelize(
   'rideminder',
   process.env.PGUSER,
   process.env.PGPASSWORD,

@@ -5,7 +5,7 @@ import {Source} from 'graphql/language/source';
 import {parse} from 'graphql/language/parser';
 import {validate} from 'graphql/validation/validate';
 
-import Sequelize from '../src/sequelize/models/index';
+import models from '../src/sequelize/models/index';
 import Schema from '../src/schema';
 
 chai.use(dirtyChai);
@@ -183,9 +183,9 @@ describe('person schema', function () {
 
       it('should also remove owned vehicles', function (done) {
         let vehicleIds;
-        Sequelize.Person.find({
+        models.Person.find({
           where: {id: 1},
-          include: [Sequelize.Vehicle]
+          include: [models.Vehicle]
         }).then(result => {
           vehicleIds = result.Vehicles.map(vehicle => vehicle.id);
           const query = `
@@ -203,7 +203,7 @@ describe('person schema', function () {
           `;
           graphql(Schema, query).then(result => {
             expect(result.errors, result.errors).to.be.empty();
-            Sequelize.Vehicle.findAll(
+            models.Vehicle.findAll(
               {where: {id: vehicleIds}}
             ).then(result => {
               expect(result).to.be.empty();
