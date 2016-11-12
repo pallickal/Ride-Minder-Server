@@ -28,6 +28,7 @@ COPY ./.babelrc /usr/src/ride-minder-server/
 COPY ./src /usr/src/ride-minder-server/src
 
 EXPOSE 3080
+ENV NODE_ENV production
 CMD ["yarn", "start"]
 
 TAG ride-minder-graphql-server

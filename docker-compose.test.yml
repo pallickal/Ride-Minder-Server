@@ -8,6 +8,7 @@ services:
     links:
       - postgres
     environment:
+      NODE_ENV: test
       PGHOSTADDR: postgres
       PGPORT: 5432
       PGUSER: test
